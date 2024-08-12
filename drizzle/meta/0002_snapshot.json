@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "e24cce00-d88b-4aa5-85ad-f64935418b31",
-  "prevId": "8d6baaaf-a390-43c2-997c-315a78a9f107",
+  "id": "bc47da5f-5705-4254-87ea-ad24b0359902",
+  "prevId": "48ecef5e-729c-48c5-81b5-7dea05f2557d",
   "tables": {
     "account": {
       "name": "account",
@@ -212,7 +212,7 @@
           "name": "email",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "emailVerified": {
           "name": "emailVerified",
@@ -226,9 +226,27 @@
           "primaryKey": false,
           "notNull": false
         },
-        "username": {
-          "name": "username",
+        "mobile": {
+          "name": "mobile",
           "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "merchant": {
+          "name": "merchant",
+          "type": "jsonb",
           "primaryKey": false,
           "notNull": false
         }
@@ -237,11 +255,18 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "user_username_unique": {
-          "name": "user_username_unique",
+        "user_email_unique": {
+          "name": "user_email_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "username"
+            "email"
+          ]
+        },
+        "user_mobile_unique": {
+          "name": "user_mobile_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "mobile"
           ]
         }
       }

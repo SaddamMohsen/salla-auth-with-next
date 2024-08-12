@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "8d6baaaf-a390-43c2-997c-315a78a9f107",
-  "prevId": "7288581e-7590-4449-aef0-ad7b7849a93e",
+  "id": "48ecef5e-729c-48c5-81b5-7dea05f2557d",
+  "prevId": "20d2e755-8d37-499c-94e9-e3b722e051a9",
   "tables": {
     "account": {
       "name": "account",
@@ -144,6 +144,54 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
+    "thread": {
+      "name": "thread",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "text": {
+          "name": "text",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "parent_id": {
+          "name": "parent_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dialogue_id": {
+          "name": "dialogue_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
     "user": {
       "name": "user",
       "schema": "",
@@ -164,12 +212,6 @@
           "name": "email",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
-        },
-        "emailVerified": {
-          "name": "emailVerified",
-          "type": "timestamp",
-          "primaryKey": false,
           "notNull": false
         },
         "image": {
@@ -178,9 +220,27 @@
           "primaryKey": false,
           "notNull": false
         },
-        "username": {
-          "name": "username",
+        "mobile": {
+          "name": "mobile",
           "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "merchant": {
+          "name": "merchant",
+          "type": "jsonb",
           "primaryKey": false,
           "notNull": false
         }
@@ -189,11 +249,18 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "user_username_unique": {
-          "name": "user_username_unique",
+        "user_email_unique": {
+          "name": "user_email_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "username"
+            "email"
+          ]
+        },
+        "user_mobile_unique": {
+          "name": "user_mobile_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "mobile"
           ]
         }
       }

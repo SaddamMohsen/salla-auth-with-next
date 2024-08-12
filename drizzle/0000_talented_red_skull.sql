@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS "account" (
 	"expires_at" integer,
 	"token_type" text,
 	"scope" text,
-	"id_token" text,
 	"session_state" text,
 	CONSTRAINT account_provider_providerAccountId PRIMARY KEY("provider","providerAccountId")
 );
@@ -19,12 +18,26 @@ CREATE TABLE IF NOT EXISTS "session" (
 	"expires" timestamp NOT NULL
 );
 --> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "thread" (
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"text" text NOT NULL,
+	"user_id" text NOT NULL,
+	"created_at" timestamp DEFAULT now(),
+	"parent_id" text,
+	"dialogue_id" uuid
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
 	"id" text PRIMARY KEY NOT NULL,
 	"name" text,
-	"email" text NOT NULL,
-	"emailVerified" timestamp,
-	"image" text
+	"email" text,
+	"image" text,
+	"mobile" text,
+	"role" text,
+	"created_at" timestamp,
+	"merchant" jsonb,
+	CONSTRAINT "user_email_unique" UNIQUE("email"),
+	CONSTRAINT "user_mobile_unique" UNIQUE("mobile")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verificationToken" (

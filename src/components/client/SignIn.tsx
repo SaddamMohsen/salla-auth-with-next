@@ -17,7 +17,7 @@ const SignIn: FC<SignInWithGoogleProps> = ({ className, ...props }) => {
 		setIsLoading(true);
 
 		try {
-			await signIn("google");
+			await signIn("salla");
 		} catch (error) {
 			catchError(error);
 		} finally {

@@ -5,6 +5,7 @@ import {
 	primaryKey,
 	integer,
 	uuid,
+	jsonb,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
 import { InferModel, relations } from "drizzle-orm";
@@ -12,11 +13,14 @@ import { InferModel, relations } from "drizzle-orm";
 export const users = pgTable("user", {
 	id: text("id").notNull().primaryKey(),
 	name: text("name"),
-	email: text("email").notNull(),
+	email: text("email").unique(),
 	emailVerified: timestamp("emailVerified", { mode: "date" }),
 	image: text("image"),
-
-	username: text("username").unique(),
+	mobile: text("mobile").unique(),
+	role: text('role'),
+	created_at: timestamp("created_at", { mode: "string" }),// '2024-07-11 23:31:35',
+	//username: text("username").unique(),
+	merchant: jsonb("merchant"),
 });
 
 export type User = InferModel<typeof users>;
